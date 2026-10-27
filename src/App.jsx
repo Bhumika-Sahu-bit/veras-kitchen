@@ -61,9 +61,11 @@ const GALLERY_QUERY = `*[_type == "galleryImage"] | order(_createdAt asc){
 //   { _id: "g6", caption: "Table for two", image: { asset: { url: u("photo-1544148103-0773bf10d330", 900) } } },
 // ];
 
-const imageUrl = (id, width = 800, height = 600) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&h=${height}&q=80`;
+// Unsplash image URL helper
+const u = (photoId, width = 800) =>
+  `https://images.unsplash.com/${photoId}?auto=format&fit=crop&w=${width}&q=80`;
 
+// Mock Menu Data
 const MOCK_MENU = [
   {
     _id: "m1",
@@ -74,7 +76,7 @@ const MOCK_MENU = [
     isAvailable: true,
     image: {
       asset: {
-        url: imageUrl("photo-1574071318508-1cdbab80d002"),
+        url: u("photo-1574071318508-1cdbab80d002"),
       },
     },
   },
@@ -87,7 +89,7 @@ const MOCK_MENU = [
     isAvailable: true,
     image: {
       asset: {
-        url: imageUrl("photo-1513104890138-7c749659a591"),
+        url: u("photo-1513104890138-7c749659a591"),
       },
     },
   },
@@ -100,7 +102,7 @@ const MOCK_MENU = [
     isAvailable: false,
     image: {
       asset: {
-        url: imageUrl("photo-1548369937-47519962c11a"),
+        url: u("photo-1548369937-47519962c11a"),
       },
     },
   },
@@ -113,7 +115,7 @@ const MOCK_MENU = [
     isAvailable: true,
     image: {
       asset: {
-        url: imageUrl("photo-1621996346565-e3dbc646d9a9"),
+        url: u("photo-1621996346565-e3dbc646d9a9"),
       },
     },
   },
@@ -126,7 +128,7 @@ const MOCK_MENU = [
     isAvailable: true,
     image: {
       asset: {
-        url: imageUrl("photo-1473093295043-cdd812d0e601"),
+        url: u("photo-1473093295043-cdd812d0e601"),
       },
     },
   },
@@ -139,7 +141,7 @@ const MOCK_MENU = [
     isAvailable: true,
     image: {
       asset: {
-        url: imageUrl("photo-1551183053-bf91a1d81141"),
+        url: u("photo-1551183053-bf91a1d81141"),
       },
     },
   },
@@ -152,7 +154,7 @@ const MOCK_MENU = [
     isAvailable: true,
     image: {
       asset: {
-        url: imageUrl("photo-1585937421612-70a008356fbe"),
+        url: u("photo-1585937421612-70a008356fbe"),
       },
     },
   },
@@ -161,11 +163,12 @@ const MOCK_MENU = [
     title: "Paneer Special Thali",
     price: 299,
     category: "Thalis",
-    description: "Paneer main, dal tadka, jeera rice, butter naan, gulab jamun.",
+    description:
+      "Paneer main, dal tadka, jeera rice, butter naan, gulab jamun.",
     isAvailable: true,
     image: {
       asset: {
-        url: imageUrl("photo-1567188040759-fb8a883dc6d8"),
+        url: u("photo-1567188040759-fb8a883dc6d8"),
       },
     },
   },
@@ -178,7 +181,7 @@ const MOCK_MENU = [
     isAvailable: true,
     image: {
       asset: {
-        url: imageUrl("photo-1572490122747-3968b75cc699"),
+        url: u("photo-1572490122747-3968b75cc699"),
       },
     },
   },
@@ -191,7 +194,7 @@ const MOCK_MENU = [
     isAvailable: true,
     image: {
       asset: {
-        url: imageUrl("photo-1461023058943-07fcbe16d735"),
+        url: u("photo-1461023058943-07fcbe16d735"),
       },
     },
   },
@@ -204,19 +207,20 @@ const MOCK_MENU = [
     isAvailable: false,
     image: {
       asset: {
-        url: imageUrl("photo-1553530666-ba11a7da3888"),
+        url: u("photo-1553530666-ba11a7da3888"),
       },
     },
   },
 ];
 
+// Mock Gallery Data
 const MOCK_GALLERY = [
   {
     _id: "g1",
     caption: "Rooftop at dusk",
     image: {
       asset: {
-        url: imageUrl("photo-1414235077428-338989a2e8c0", 900, 700),
+        url: u("photo-1414235077428-338989a2e8c0", 900),
       },
     },
   },
@@ -225,7 +229,7 @@ const MOCK_GALLERY = [
     caption: "Evening seating",
     image: {
       asset: {
-        url: imageUrl("photo-1517248135467-4c7edcad34c4", 900, 700),
+        url: u("photo-1517248135467-4c7edcad34c4", 900),
       },
     },
   },
@@ -234,7 +238,7 @@ const MOCK_GALLERY = [
     caption: "From the kitchen",
     image: {
       asset: {
-        url: imageUrl("photo-1559339352-11d035aa65de", 900, 700),
+        url: u("photo-1559339352-11d035aa65de", 900),
       },
     },
   },
@@ -243,7 +247,7 @@ const MOCK_GALLERY = [
     caption: "Fresh from the oven",
     image: {
       asset: {
-        url: imageUrl("photo-1555396273-367ea4eb4db5", 900, 700),
+        url: u("photo-1555396273-367ea4eb4db5", 900),
       },
     },
   },
@@ -252,7 +256,7 @@ const MOCK_GALLERY = [
     caption: "Lit up after dark",
     image: {
       asset: {
-        url: imageUrl("photo-1552566626-52f8b828add9", 900, 700),
+        url: u("photo-1552566626-52f8b828add9", 900),
       },
     },
   },
@@ -261,7 +265,7 @@ const MOCK_GALLERY = [
     caption: "Table for two",
     image: {
       asset: {
-        url: imageUrl("photo-1544148103-0773bf10d330", 900, 700),
+        url: u("photo-1544148103-0773bf10d330", 900),
       },
     },
   },
