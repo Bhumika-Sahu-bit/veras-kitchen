@@ -38,27 +38,233 @@ const GALLERY_QUERY = `*[_type == "galleryImage"] | order(_createdAt asc){
 }`;
 
 /* ───────────── Mock data (mirrors Sanity output) ───────────── */
-const u = (id, w = 800) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`;
+// const u = (id, w = 800) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`;
+// const MOCK_MENU = [
+//   { _id: "m1", title: "Wood-Fired Margherita", price: 299, category: "Pizzas", description: "San Marzano-style sauce, fresh mozzarella, basil.", isAvailable: true, image: { asset: { url: u("photo-1574071318508-1cdbab80d002") } } },
+//   { _id: "m2", title: "Peri-Peri Paneer Pizza", price: 349, category: "Pizzas", description: "Smoky peri-peri paneer, capsicum, onion, olives.", isAvailable: true, image: { asset: { url: u("photo-1513104890138-7c749659a591") } } },
+//   { _id: "m3", title: "Four Cheese Pizza", price: 399, category: "Pizzas", description: "Mozzarella, cheddar, parmesan and processed cheese.", isAvailable: false, image: { asset: { url: u("photo-1548369937-47519962c11a") } } },
+//   { _id: "m4", title: "Alfredo Penne", price: 279, category: "Pastas", description: "Creamy white sauce, garlic, herbs, parmesan.", isAvailable: true, image: { asset: { url: u("photo-1621996346565-e3dbc646d9a9") } } },
+//   { _id: "m5", title: "Arrabbiata Spaghetti", price: 259, category: "Pastas", description: "Spicy tomato sauce, chilli flakes, olive oil.", isAvailable: true, image: { asset: { url: u("photo-1473093295043-cdd812d0e601") } } },
+//   { _id: "m6", title: "Pink Sauce Fusilli", price: 289, category: "Pastas", description: "Tomato-cream blend with bell peppers and mushrooms.", isAvailable: true, image: { asset: { url: u("photo-1551183053-bf91a1d81141") } } },
+//   { _id: "m7", title: "Royal Veg Thali", price: 249, category: "Thalis", description: "Two sabzis, dal, rice, roti, salad, raita and sweet.", isAvailable: true, image: { asset: { url: u("photo-1585937421612-70a008356fbe") } } },
+//   { _id: "m8", title: "Paneer Special Thali", price: 299, category: "Thalis", description: "Paneer main, dal tadka, jeera rice, butter naan, gulab jamun.", isAvailable: true, image: { asset: { url: u("photo-1567188040759-fb8a883dc6d8") } } },
+//   { _id: "m9", title: "Oreo Thick Shake", price: 149, category: "Shakes", description: "Cookies, vanilla ice cream, whole milk.", isAvailable: true, image: { asset: { url: u("photo-1572490122747-3968b75cc699") } } },
+//   { _id: "m10", title: "Cold Coffee Frappe", price: 139, category: "Shakes", description: "Slow-brewed coffee blended with ice cream.", isAvailable: true, image: { asset: { url: u("photo-1461023058943-07fcbe16d735") } } },
+//   { _id: "m11", title: "Mango Shake", price: 129, category: "Shakes", description: "Seasonal mango, chilled milk.", isAvailable: false, image: { asset: { url: u("photo-1553530666-ba11a7da3888") } } },
+// ];
+// const MOCK_GALLERY = [
+//   { _id: "g1", caption: "Rooftop at dusk", image: { asset: { url: u("photo-1414235077428-338989a2e8c0", 900) } } },
+//   { _id: "g2", caption: "Evening seating", image: { asset: { url: u("photo-1517248135467-4c7edcad34c4", 900) } } },
+//   { _id: "g3", caption: "From the kitchen", image: { asset: { url: u("photo-1559339352-11d035aa65de", 900) } } },
+//   { _id: "g4", caption: "Fresh from the oven", image: { asset: { url: u("photo-1555396273-367ea4eb4db5", 900) } } },
+//   { _id: "g5", caption: "Lit up after dark", image: { asset: { url: u("photo-1552566626-52f8b828add9", 900) } } },
+//   { _id: "g6", caption: "Table for two", image: { asset: { url: u("photo-1544148103-0773bf10d330", 900) } } },
+// ];
+
+const imageUrl = (id, width = 800, height = 600) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&h=${height}&q=80`;
+
 const MOCK_MENU = [
-  { _id: "m1", title: "Wood-Fired Margherita", price: 299, category: "Pizzas", description: "San Marzano-style sauce, fresh mozzarella, basil.", isAvailable: true, image: { asset: { url: u("photo-1574071318508-1cdbab80d002") } } },
-  { _id: "m2", title: "Peri-Peri Paneer Pizza", price: 349, category: "Pizzas", description: "Smoky peri-peri paneer, capsicum, onion, olives.", isAvailable: true, image: { asset: { url: u("photo-1513104890138-7c749659a591") } } },
-  { _id: "m3", title: "Four Cheese Pizza", price: 399, category: "Pizzas", description: "Mozzarella, cheddar, parmesan and processed cheese.", isAvailable: false, image: { asset: { url: u("photo-1548369937-47519962c11a") } } },
-  { _id: "m4", title: "Alfredo Penne", price: 279, category: "Pastas", description: "Creamy white sauce, garlic, herbs, parmesan.", isAvailable: true, image: { asset: { url: u("photo-1621996346565-e3dbc646d9a9") } } },
-  { _id: "m5", title: "Arrabbiata Spaghetti", price: 259, category: "Pastas", description: "Spicy tomato sauce, chilli flakes, olive oil.", isAvailable: true, image: { asset: { url: u("photo-1473093295043-cdd812d0e601") } } },
-  { _id: "m6", title: "Pink Sauce Fusilli", price: 289, category: "Pastas", description: "Tomato-cream blend with bell peppers and mushrooms.", isAvailable: true, image: { asset: { url: u("photo-1551183053-bf91a1d81141") } } },
-  { _id: "m7", title: "Royal Veg Thali", price: 249, category: "Thalis", description: "Two sabzis, dal, rice, roti, salad, raita and sweet.", isAvailable: true, image: { asset: { url: u("photo-1585937421612-70a008356fbe") } } },
-  { _id: "m8", title: "Paneer Special Thali", price: 299, category: "Thalis", description: "Paneer main, dal tadka, jeera rice, butter naan, gulab jamun.", isAvailable: true, image: { asset: { url: u("photo-1567188040759-fb8a883dc6d8") } } },
-  { _id: "m9", title: "Oreo Thick Shake", price: 149, category: "Shakes", description: "Cookies, vanilla ice cream, whole milk.", isAvailable: true, image: { asset: { url: u("photo-1572490122747-3968b75cc699") } } },
-  { _id: "m10", title: "Cold Coffee Frappe", price: 139, category: "Shakes", description: "Slow-brewed coffee blended with ice cream.", isAvailable: true, image: { asset: { url: u("photo-1461023058943-07fcbe16d735") } } },
-  { _id: "m11", title: "Mango Shake", price: 129, category: "Shakes", description: "Seasonal mango, chilled milk.", isAvailable: false, image: { asset: { url: u("photo-1553530666-ba11a7da3888") } } },
+  {
+    _id: "m1",
+    title: "Wood-Fired Margherita",
+    price: 299,
+    category: "Pizzas",
+    description: "San Marzano-style sauce, fresh mozzarella, basil.",
+    isAvailable: true,
+    image: {
+      asset: {
+        url: imageUrl("photo-1574071318508-1cdbab80d002"),
+      },
+    },
+  },
+  {
+    _id: "m2",
+    title: "Peri-Peri Paneer Pizza",
+    price: 349,
+    category: "Pizzas",
+    description: "Smoky peri-peri paneer, capsicum, onion, olives.",
+    isAvailable: true,
+    image: {
+      asset: {
+        url: imageUrl("photo-1513104890138-7c749659a591"),
+      },
+    },
+  },
+  {
+    _id: "m3",
+    title: "Four Cheese Pizza",
+    price: 399,
+    category: "Pizzas",
+    description: "Mozzarella, cheddar, parmesan and processed cheese.",
+    isAvailable: false,
+    image: {
+      asset: {
+        url: imageUrl("photo-1548369937-47519962c11a"),
+      },
+    },
+  },
+  {
+    _id: "m4",
+    title: "Alfredo Penne",
+    price: 279,
+    category: "Pastas",
+    description: "Creamy white sauce, garlic, herbs, parmesan.",
+    isAvailable: true,
+    image: {
+      asset: {
+        url: imageUrl("photo-1621996346565-e3dbc646d9a9"),
+      },
+    },
+  },
+  {
+    _id: "m5",
+    title: "Arrabbiata Spaghetti",
+    price: 259,
+    category: "Pastas",
+    description: "Spicy tomato sauce, chilli flakes, olive oil.",
+    isAvailable: true,
+    image: {
+      asset: {
+        url: imageUrl("photo-1473093295043-cdd812d0e601"),
+      },
+    },
+  },
+  {
+    _id: "m6",
+    title: "Pink Sauce Fusilli",
+    price: 289,
+    category: "Pastas",
+    description: "Tomato-cream blend with bell peppers and mushrooms.",
+    isAvailable: true,
+    image: {
+      asset: {
+        url: imageUrl("photo-1551183053-bf91a1d81141"),
+      },
+    },
+  },
+  {
+    _id: "m7",
+    title: "Royal Veg Thali",
+    price: 249,
+    category: "Thalis",
+    description: "Two sabzis, dal, rice, roti, salad, raita and sweet.",
+    isAvailable: true,
+    image: {
+      asset: {
+        url: imageUrl("photo-1585937421612-70a008356fbe"),
+      },
+    },
+  },
+  {
+    _id: "m8",
+    title: "Paneer Special Thali",
+    price: 299,
+    category: "Thalis",
+    description: "Paneer main, dal tadka, jeera rice, butter naan, gulab jamun.",
+    isAvailable: true,
+    image: {
+      asset: {
+        url: imageUrl("photo-1567188040759-fb8a883dc6d8"),
+      },
+    },
+  },
+  {
+    _id: "m9",
+    title: "Oreo Thick Shake",
+    price: 149,
+    category: "Shakes",
+    description: "Cookies, vanilla ice cream, whole milk.",
+    isAvailable: true,
+    image: {
+      asset: {
+        url: imageUrl("photo-1572490122747-3968b75cc699"),
+      },
+    },
+  },
+  {
+    _id: "m10",
+    title: "Cold Coffee Frappe",
+    price: 139,
+    category: "Shakes",
+    description: "Slow-brewed coffee blended with ice cream.",
+    isAvailable: true,
+    image: {
+      asset: {
+        url: imageUrl("photo-1461023058943-07fcbe16d735"),
+      },
+    },
+  },
+  {
+    _id: "m11",
+    title: "Mango Shake",
+    price: 129,
+    category: "Shakes",
+    description: "Seasonal mango, chilled milk.",
+    isAvailable: false,
+    image: {
+      asset: {
+        url: imageUrl("photo-1553530666-ba11a7da3888"),
+      },
+    },
+  },
 ];
+
 const MOCK_GALLERY = [
-  { _id: "g1", caption: "Rooftop at dusk", image: { asset: { url: u("photo-1414235077428-338989a2e8c0", 900) } } },
-  { _id: "g2", caption: "Evening seating", image: { asset: { url: u("photo-1517248135467-4c7edcad34c4", 900) } } },
-  { _id: "g3", caption: "From the kitchen", image: { asset: { url: u("photo-1559339352-11d035aa65de", 900) } } },
-  { _id: "g4", caption: "Fresh from the oven", image: { asset: { url: u("photo-1555396273-367ea4eb4db5", 900) } } },
-  { _id: "g5", caption: "Lit up after dark", image: { asset: { url: u("photo-1552566626-52f8b828add9", 900) } } },
-  { _id: "g6", caption: "Table for two", image: { asset: { url: u("photo-1544148103-0773bf10d330", 900) } } },
+  {
+    _id: "g1",
+    caption: "Rooftop at dusk",
+    image: {
+      asset: {
+        url: imageUrl("photo-1414235077428-338989a2e8c0", 900, 700),
+      },
+    },
+  },
+  {
+    _id: "g2",
+    caption: "Evening seating",
+    image: {
+      asset: {
+        url: imageUrl("photo-1517248135467-4c7edcad34c4", 900, 700),
+      },
+    },
+  },
+  {
+    _id: "g3",
+    caption: "From the kitchen",
+    image: {
+      asset: {
+        url: imageUrl("photo-1559339352-11d035aa65de", 900, 700),
+      },
+    },
+  },
+  {
+    _id: "g4",
+    caption: "Fresh from the oven",
+    image: {
+      asset: {
+        url: imageUrl("photo-1555396273-367ea4eb4db5", 900, 700),
+      },
+    },
+  },
+  {
+    _id: "g5",
+    caption: "Lit up after dark",
+    image: {
+      asset: {
+        url: imageUrl("photo-1552566626-52f8b828add9", 900, 700),
+      },
+    },
+  },
+  {
+    _id: "g6",
+    caption: "Table for two",
+    image: {
+      asset: {
+        url: imageUrl("photo-1544148103-0773bf10d330", 900, 700),
+      },
+    },
+  },
 ];
 
 const CATEGORIES = ["Pizzas", "Pastas", "Thalis", "Shakes"];
